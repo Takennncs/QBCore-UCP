@@ -28,6 +28,74 @@ CREATE TABLE `ucp_users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 ALTER TABLE `players` ADD COLUMN `steamhex` VARCHAR(50) NULL DEFAULT NULL;
+
+CREATE TABLE `whitelist_answers` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `question_id` int(11) NOT NULL,
+  `selected_answer` char(1) NOT NULL,
+  `is_correct` tinyint(1) NOT NULL,
+  `attempt_date` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO `whitelist_answers` (`id`, `user_id`, `question_id`, `selected_answer`, `is_correct`, `attempt_date`) VALUES
+(1, 2, 1, 'D', 0, '2026-02-27 17:03:07'),
+(2, 2, 2, 'C', 0, '2026-02-27 17:03:07'),
+(3, 2, 3, 'C', 1, '2026-02-27 17:03:07'),
+(4, 2, 4, 'C', 1, '2026-02-27 17:03:07'),
+(5, 2, 5, 'C', 1, '2026-02-27 17:03:07'),
+(6, 2, 6, 'C', 0, '2026-02-27 17:03:07'),
+(7, 2, 7, 'D', 0, '2026-02-27 17:03:07'),
+(8, 2, 8, 'C', 1, '2026-02-27 17:03:07'),
+(9, 2, 9, 'D', 0, '2026-02-27 17:03:07'),
+(10, 2, 10, 'C', 1, '2026-02-27 17:03:07'),
+(11, 2, 1, 'C', 1, '2026-02-27 17:08:40'),
+(12, 2, 2, 'B', 1, '2026-02-27 17:08:40'),
+(13, 2, 3, 'C', 1, '2026-02-27 17:08:40'),
+(14, 2, 4, 'C', 1, '2026-02-27 17:08:40'),
+(15, 2, 5, 'C', 1, '2026-02-27 17:08:40'),
+(16, 2, 6, 'B', 1, '2026-02-27 17:08:40'),
+(17, 2, 7, 'B', 1, '2026-02-27 17:08:40'),
+(18, 2, 8, 'C', 1, '2026-02-27 17:08:40'),
+(19, 2, 9, 'C', 1, '2026-02-27 17:08:40'),
+(20, 2, 10, 'C', 1, '2026-02-27 17:08:40'),
+(21, 2, 1, 'C', 1, '2026-02-27 17:10:02'),
+(22, 2, 2, 'C', 0, '2026-02-27 17:10:02'),
+(23, 2, 3, 'B', 0, '2026-02-27 17:10:02'),
+(24, 2, 4, 'B', 0, '2026-02-27 17:10:02'),
+(25, 2, 5, 'C', 1, '2026-02-27 17:10:02'),
+(26, 2, 6, 'D', 0, '2026-02-27 17:10:02'),
+(27, 2, 7, 'A', 0, '2026-02-27 17:10:02'),
+(28, 2, 8, 'C', 1, '2026-02-27 17:10:02'),
+(29, 2, 9, 'B', 0, '2026-02-27 17:10:02'),
+(30, 2, 10, 'D', 0, '2026-02-27 17:10:02');
+
+CREATE TABLE `whitelist_attempts` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `attempts` int(11) DEFAULT 0,
+  `last_attempt` datetime DEFAULT NULL,
+  `cooldown_until` datetime DEFAULT NULL,
+  `passed` tinyint(1) DEFAULT 0,
+  `passed_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+CREATE TABLE `whitelist_questions` (
+  `id` int(11) NOT NULL,
+  `question` text NOT NULL,
+  `option_a` text NOT NULL,
+  `option_b` text NOT NULL,
+  `option_c` text NOT NULL,
+  `option_d` text NOT NULL,
+  `correct_answer` char(1) NOT NULL COMMENT 'A, B, C või D',
+  `explanation` text DEFAULT NULL,
+  `order_num` int(11) NOT NULL,
+  `active` tinyint(1) DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO `whitelist_questions` (`id`, `question`, `option_a`, `option_b`, `option_c`, `option_d`, `correct_answer`, `explanation`, `order_num`, `active`) VALUES
+(1, 'ADD HERE.', 1, 1);
 ```
 * In config add your own apikey $steamauth['apikey'] = "YOUR_STEAM_API_KEY"; 
 
